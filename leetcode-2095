@@ -1,0 +1,37 @@
+/*Delete the middle node of a linked list-(LEETCODE-2095)
+Problem Statement-
+You are given the head of a linked list. Delete the middle node, and return the head of the modified linked list.
+The middle node of a linked list of size n is the ⌊n / 2⌋th node from the start using 0-based indexing, where ⌊x⌋ denotes the largest integer less than or equal to x.
+For n = 1, 2, 3, 4, and 5, the middle nodes are 0, 1, 1, 2, and 2, respectively.
+
+Time Complexity-
+O(n)
+
+Space Complexity-
+O(1)
+
+Approach-
+1)Three pointers, fp (fast pointer), slp (slow pointer), and x, are initialized to the head of the linked list. The fp and slp pointers are used to traverse the list, and the x pointer is used to keep track of the node before the middle node.
+There's a special case check: if the linked list contains only one node (i.e., head->next == NULL), it returns NULL, indicating that the list becomes empty.
+2)The code uses a classic two-pointer technique to find the middle node of the linked list. The fp pointer advances two nodes at a time, while the slp pointer advances one node at a time. This ensures that when the fp pointer reaches the end of the list, the slp pointer will be at the middle node.
+3)Once the middle node is found, the x pointer points to the node just before the middle node. To delete the middle node, it changes the x pointer's next to skip the middle node, effectively bypassing it.
+4)Finally, the function returns the head of the updated linked list. The middle node has been removed from the list, and the head of the list remains the same.
+
+Code-*/
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        ListNode*fp=head;
+        ListNode*slp=head;
+        ListNode*x=head;
+        if(head->next==NULL){
+            return NULL;
+        }
+        while(fp!=NULL && fp->next!=NULL){
+        x=slp;
+        slp=slp->next;
+        fp=fp->next->next;}
+        x->next=x->next->next;
+        return head;
+    }
+};
